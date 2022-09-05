@@ -1,7 +1,6 @@
 import WalletConnect from '@walletconnect/client';
 import { IInternalEvent } from '@walletconnect/types';
 import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ChainService from './services/ChainService';
 import FirebaseService from './services/FirebaseService';
@@ -30,23 +29,24 @@ const INITIAL_STATE: AppState = {
 };
 
 class App extends React.Component<AppProps, AppState> {
-  // constructor(props: AppProps) {
-  // super(props);
-  // const { connected, accounts } = INITIAL_STATE.connector;
-  // this.state = {
-  //   ...INITIAL_STATE,
-  //   connected,
-  //   accounts,
-  //   address: accounts[0],
-  // };
-  // this.subscribeToWalletEvents();
-  // this.setupFirebase();
-  // console.log('on mainnet:', this.state.chainService.isMainNet);
-  // }
+  constructor(props: AppProps) {
+    super(props);
+    const { connected, accounts } = INITIAL_STATE.connector;
+    this.state = {
+      ...INITIAL_STATE,
+      connected,
+      accounts,
+      address: accounts[0],
+    };
+    this.subscribeToWalletEvents();
+    this.setupFirebase();
+    console.log('on mainnet:', this.state.chainService.isMainNet);
+  }
 
-  // setupFirebase = async () => {
-  //   await this.state.firebaseService.setup({ account: this.state.address });
-  // };
+  setupFirebase = async () => {
+    // await this.state.firebaseService.setup({ account: this.state.address });
+    await this.state.firebaseService.setup();
+  };
 
   subscribeToWalletEvents = async () => {
     const connector = this.state.connector;
@@ -125,7 +125,7 @@ class App extends React.Component<AppProps, AppState> {
     const { connector, firebaseService, chainService, address } = this.state;
     return (
       <div>
-        <h1 className="cabinsketch">NeFelibaTa</h1>
+        <h1 className='cabinsketch'>NeFelibaTa</h1>
         <p>
           The Portuguese word Nefelibata literally translates as Cloud Walker.
           To be nefelibata means to think and live outside of preconceived
