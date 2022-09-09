@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const SButton = styled.button`
-  min-width: 10rem;
+  min-width: 8rem;
   padding: 0.5rem 1rem;
-  color: black;
-  border-color: black;
+  border-radius: 0.5rem;
+  border-width: 0.1rem;
   background-color: white;
   cursor: pointer;
+  font-weight: 500;
   &:hover&:!disabled {
     opacity: 0.8;
   }

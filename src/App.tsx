@@ -1,7 +1,10 @@
 import WalletConnect from '@walletconnect/client';
 import { IInternalEvent } from '@walletconnect/types';
 import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header';
+import Home from './pages/Home';
 import ChainService from './services/ChainService';
 import FirebaseService from './services/FirebaseService';
 import WalletService from './services/WalletService';
@@ -38,6 +41,9 @@ class App extends React.Component<AppProps, AppState> {
       accounts,
       address: accounts[0],
     };
+  }
+
+  componentDidMount(): void {
     this.subscribeToWalletEvents();
     this.setupFirebase();
     console.log('on mainnet:', this.state.chainService.isMainNet);
@@ -125,22 +131,16 @@ class App extends React.Component<AppProps, AppState> {
     const { connector, firebaseService, chainService, address } = this.state;
     return (
       <div>
-        <h1 className='cabinsketch'>NeFelibaTa</h1>
-        <p>
-          The Portuguese word Nefelibata literally translates as Cloud Walker.
-          To be nefelibata means to think and live outside of preconceived
-          boxes, to be true to your heart, and to follow your own path
-        </p>
-        {/* <Header
+        <Header
           address={address}
           connector={connector}
           killSession={this.killSession}
-        ></Header> */}
-        {/* <BrowserRouter basename={process.env.PUBLIC_URL}>
+        />
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/asset/:index"
+            <Route path='/' element={<Home />} />
+            {/* <Route
+              path='/asset/:index'
               element={
                 <AssetPage
                   chainService={chainService}
@@ -149,10 +149,10 @@ class App extends React.Component<AppProps, AppState> {
                   connector={connector}
                 />
               }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            /> */}
+            <Route path='*' element={<Navigate to='/' replace />} />
           </Routes>
-        </BrowserRouter> */}
+        </BrowserRouter>
       </div>
     );
   }
