@@ -9,3 +9,13 @@ export function formatMoney(value: number): string {
 export function formatInteger(value: number, percent: number): number {
   return parseInt(Number(value * percent).toFixed());
 }
+
+export function truncateString(
+  text: string,
+  startIndex: number,
+  maxLength: number
+): string {
+  const truncatedText =
+    text.length > maxLength ? text.slice(startIndex, maxLength) : text;
+  return `${truncatedText}...`;
+}
