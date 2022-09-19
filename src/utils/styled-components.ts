@@ -18,11 +18,10 @@ export const SButton = styled.button`
   }
 `;
 
-export const SImage = styled.img`
-  max-width: 100%;
-  border-radius: 0.5rem;
-  border-style: solid;
-  border-width: 0.05rem;
+export const SImageSquare = styled.img`
+  object-fit: cover;
+  // width: 230px;
+  // height: 230px;
 `;
 
 export const SAssetInfo = styled.div`

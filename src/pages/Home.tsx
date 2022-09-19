@@ -1,5 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
 import FeaturedExhibition from '../components/FeaturedExhibition';
+import OngoingExhibition from '../components/OngoingExhibition';
 import { FEATURED_EXHIBITIONS_PAYLOAD } from '../mocks';
 
 interface HomeProps {}
@@ -13,15 +14,19 @@ const Home: FunctionComponent<HomeProps> = () => {
         be nefelibata means to think and live outside of preconceived boxes, to
         be true to your heart, and to follow your own path
       </p>
-      <div className='flex flex-column flex-row-ns justify-around mv4'>
+      <div className="flex flex-column flex-row-ns justify-around items-center items-start-ns mv4">
         {exhibitions.map((exhibition) => (
           <FeaturedExhibition
+            key={exhibition.id}
+            id={exhibition.id}
             title={exhibition.title}
             curator={exhibition.curator}
-            imgUrl={exhibition.imgUrl}
             description={exhibition.description}
           />
         ))}
+      </div>
+      <div>
+        <OngoingExhibition />
       </div>
     </Fragment>
   );

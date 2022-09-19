@@ -138,7 +138,7 @@ class App extends React.Component<AppProps, AppState> {
         />
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path="/" element={<Home />} />
             {/* <Route
               path='/asset/:index'
               element={
@@ -150,7 +150,7 @@ class App extends React.Component<AppProps, AppState> {
                 />
               }
             /> */}
-            <Route path='*' element={<Navigate to='/' replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </div>

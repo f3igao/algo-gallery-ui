@@ -19,3 +19,7 @@ export function truncateString(
     text.length > maxLength ? text.slice(startIndex, maxLength) : text;
   return `${truncatedText}...`;
 }
+
+export function getImgUrl(section: string, id: string, format = 'jpeg'): string {
+  return `/static/exhibitions/${section}/${id}.${format}`;
+}
