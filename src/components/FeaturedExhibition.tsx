@@ -15,11 +15,11 @@ const FeaturedExhibition: FunctionComponent<FeaturedExhibitionProps> = ({
   description,
 }: FeaturedExhibitionProps) => {
   return (
-    <div className="flex flex-column justify-center w-100 w-40-ns mh3">
-      <span className="f3 b">{title}</span>
-      <span className="mt2 mb3 ttu f5">Curated by {curator}</span>
-      <img className="br3" src={getImgUrl('featured', id)} alt={id} />
-      <p className="tj">{truncateString(description, 0, 240)}</p>
+    <div className='flex flex-column justify-center w-100 w-40-ns mh3'>
+      <span className='f3 b'>{title}</span>
+      <span className='mt2 mb3 ttu f5'>Curated by {curator}</span>
+      <img className='br3' src={getImgUrl('featured', id)} alt={id} />
+      <p className='tj'>{truncateString(description, 0, 240)}</p>
     </div>
   );
 };

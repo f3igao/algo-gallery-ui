@@ -42,3 +42,22 @@ body {
   cursor: pointer;
   opacity: 0.8;
 }
+
+.object-cover {
+  object-fit: cover;
+}
+.object-contain {
+  object-fit: contain;
+}
+.object-fill {
+  object-fit: fill;
+}
+.object-contain {
+  object-fit: contain;
+}
+.object-scale-down {
+  object-fit: scale-down;
+}
+.object-none {
+  object-fit: none;
+}

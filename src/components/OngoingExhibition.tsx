@@ -6,7 +6,7 @@ import 'swiper/modules/navigation/navigation.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 import 'swiper/swiper.min.css';
 import { IExhibit } from '../mocks';
-import { SImageContainer } from '../utils';
+import { getImgUrl } from '../utils';
 
 interface OngoingExhibitionProps {
   exhibitions: IExhibit[];
@@ -16,12 +16,16 @@ const OngoingExhibition: FunctionComponent<OngoingExhibitionProps> = ({
   exhibitions,
 }: OngoingExhibitionProps) => {
   const buildSlides = () => {
-    return exhibitions.map((exhibition, i) => (
-      <SwiperSlide key={exhibition.title + i}>
-        <SImageContainer>
-          <img src={exhibition.imgUrl} alt={exhibition.title} />
-          <p>{exhibition.description}</p>
-        </SImageContainer>
+    return exhibitions.map((exhibition) => (
+      <SwiperSlide key={exhibition.id}>
+        <div className='flex flex-column items-center tc'>
+          <img
+            className='w-75 br3 object-cover h5'
+            src={getImgUrl('ongoing', exhibition.id)}
+            alt={exhibition.title}
+          />
+          <p className='pb4'>{exhibition.description}</p>
+        </div>
       </SwiperSlide>
     ));
   };
