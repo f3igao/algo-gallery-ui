@@ -35,3 +35,20 @@ export const SIcon = styled.img`
   height: 1rem;
   margin-left: 0.2rem;
 `;
+
+export const SImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  img {
+    width: 75%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  p {
+    padding-bottom: 24px;
+  }
+`;

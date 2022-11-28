@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
+import Create from './pages/Create';
 import Home from './pages/Home';
 import ChainService from './services/ChainService';
 import FirebaseService from './services/FirebaseService';
@@ -138,7 +139,8 @@ class App extends React.Component<AppProps, AppState> {
         />
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/create' element={<Create />} />
             {/* <Route
               path='/asset/:index'
               element={
@@ -150,7 +152,7 @@ class App extends React.Component<AppProps, AppState> {
                 />
               }
             /> */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path='*' element={<Navigate to='/' replace />} />
           </Routes>
         </BrowserRouter>
       </div>
