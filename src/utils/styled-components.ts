@@ -6,14 +6,13 @@ export const SButton = styled.button`
   border-radius: 0.5rem;
   border-width: 0.1rem;
   background-color: white;
-  cursor: pointer;
   font-weight: 500;
-  &:hover&:!disabled {
+  :hover:not([disabled]) {
+    cursor: pointer;
     opacity: 0.8;
   }
-  &:disabled {
-    color: lightgray;
-    border-color: lightgray;
+  :disabled {
+    color: gray;
     cursor: unset;
   }
 `;

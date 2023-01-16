@@ -3,8 +3,9 @@ import { IInternalEvent } from '@walletconnect/types';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 import Create from './pages/Create';
+import Exhibit from './pages/Exhibit';
 import Home from './pages/Home';
 import ChainService from './services/ChainService';
 import FirebaseService from './services/FirebaseService';
@@ -131,17 +132,17 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     const { connector, firebaseService, chainService, address } = this.state;
     return (
-      <div>
-        <Header
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Navbar
           address={address}
           connector={connector}
           killSession={this.killSession}
         />
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/create' element={<Create />} />
-            {/* <Route
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<Exhibit />} />
+          <Route path="/create" element={<Create />} />
+          {/* <Route
               path='/asset/:index'
               element={
                 <AssetPage
@@ -152,10 +153,9 @@ class App extends React.Component<AppProps, AppState> {
                 />
               }
             /> */}
-            <Route path='*' element={<Navigate to='/' replace />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

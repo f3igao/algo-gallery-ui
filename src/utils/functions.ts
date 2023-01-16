@@ -20,6 +20,14 @@ export function truncateString(
   return `${truncatedText}...`;
 }
 
-export function getImgUrl(section: string, id: string, format = 'jpeg'): string {
+export function getLogoUrl(id: string, format = 'png'): string {
+  return `/logos/${id}.${format}`;
+}
+
+export function getImgUrl(
+  section: string,
+  id: string,
+  format = 'jpeg'
+): string {
   return `/static/exhibitions/${section}/${id}.${format}`;
 }
