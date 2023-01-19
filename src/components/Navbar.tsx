@@ -17,12 +17,12 @@ const Navbar: FunctionComponent<NavbarProps> = ({
   const connectWallet = async () => connector.createSession();
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between mb4">
       <Link to="/" className="f1 cabinsketch pointer-fade link near-black">
         Gallery
       </Link>
       <div className="flex items-center">
-        <ul className="flex list mr3">
+        <ul className="flex list">
           <NavItem to="/browse" label="Browse" />
           <NavItem to="/create" label="Create" />
         </ul>
@@ -55,9 +55,8 @@ function NavItem({ to, label }: NavItemProps) {
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
   return (
-    // <li className={isActive ? 'active' : ''}>
-    <li className="ml3 pointer-fade">
-      <Link className="link bn" to={to}>
+    <li className="mr4 pointer-fade">
+      <Link className={`link ${isActive ? 'orange' : 'near-black'}`} to={to}>
         {label}
       </Link>
     </li>

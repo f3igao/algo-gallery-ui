@@ -1,68 +1,124 @@
-import { Field, FieldArray, Form, Formik } from 'formik';
-import { FunctionComponent } from 'react';
+import {
+  ArrayHelpers,
+  ErrorMessage,
+  Field,
+  FieldArray,
+  FormikProvider,
+  useFormik,
+} from 'formik';
+import { Fragment, FunctionComponent } from 'react';
+import * as Yup from 'yup';
+
 interface CreateProps {}
 
-const initialValues = {
+const collaboratorsValues = {
   collaborators: [
     {
-      address: 'address',
+      address: '',
       split: 0,
     },
   ],
 };
 
+const collaboratorsSchema = Yup.object().shape({
+  collaborators: Yup.array()
+    .of(
+      Yup.object().shape({
+        address: Yup.string()
+          .min(2, 'Too Short')
+          .max(50, 'Too Long')
+          .required('Required'),
+        split: Yup.number()
+          .integer('Integer')
+          .lessThan(100, 'Too Large')
+          .moreThan(0, 'Too Small')
+          .required('Required'),
+      })
+    )
+    .required('Must have friends') // these constraints are shown if and only if inner constraints are satisfied
+    .min(3, 'Minimum of 3 friends'),
+});
+
+// const FieldErrorMessage = ({ name }: any) => (
+//   <Field
+//     name={name}
+//     render={({ form }: any) => {
+//       const error = getIn(form.errors, name);
+//       const touch = getIn(form.touched, name);
+//       return touch && error ? error : null;
+//     }}
+//   />
+// );
+
 const Create: FunctionComponent<CreateProps> = () => {
+  const formik = useFormik({
+    initialValues: collaboratorsValues,
+    validationSchema: collaboratorsSchema,
+    onSubmit: async (values) => {
+      await new Promise((r) => setTimeout(r, 500));
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={async (values) => {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {({ values }) => (
-        <Form>
-          <FieldArray name='collaborators'>
-            {({ remove, push }) => (
-              <div>
-                {values.collaborators.length > 0 &&
-                  values.collaborators.map((collaborator, index) => (
-                    <div key={index}>
+    <div className="flex justify-between">
+      <span>Instructions XYZ</span>
+      <FormikProvider value={formik}>
+        <div className="flex flex-column w-50">
+          <FieldArray name="collaborators">
+            {({ remove, insert }: ArrayHelpers) => (
+              <Fragment>
+                {formik.values.collaborators?.map((_, index) => (
+                  <div key={index} className="flex justify-between">
+                    <div className="flex flex-column w-60">
                       <Field
-                        className='w5'
                         name={`collaborators.${index}.address`}
-                        placeholder={collaborator.address}
-                        type='text'
+                        placeholder={`Collaborator ${index + 1} wallet address`}
+                        type="text"
                       />
+                      <ErrorMessage name={`collaborators.${index}.address`} />
+                    </div>
+                    <div className="flex flex-column w-30 mh3">
                       <Field
-                        className='w3 mh3'
                         name={`collaborators.${index}.split`}
-                        placeholder={collaborator.split}
-                        type='number'
+                        type="number"
                       />
+                      <ErrorMessage name={`collaborators.${index}.split`} />
+                    </div>
+                    <div>
+                      {' '}
                       <button
-                        type='button'
-                        className='secondary'
-                        onClick={() => remove(index)}
+                        disabled={formik.values.collaborators.length >= 10}
+                        type="button"
+                        onClick={() =>
+                          insert(index + 1, { address: '', split: 0 })
+                        }
                       >
-                        X
+                        +
                       </button>
                     </div>
-                  ))}
-                <button
-                  type='button'
-                  className='secondary'
-                  onClick={() => push({ address: '', split: 0 })}
-                >
-                  Add Collaborator
-                </button>
-              </div>
+                    <div>
+                      <button
+                        disabled={formik.values.collaborators.length <= 1}
+                        type="button"
+                        onClick={() => remove(index)}
+                      >
+                        -
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </Fragment>
             )}
           </FieldArray>
-          <button type='submit'>Submit</button>
-        </Form>
-      )}
-    </Formik>
+          <div className="mt2 tr">
+            <button type="submit" disabled={!(formik.isValid && formik.dirty)}>
+              Submit
+            </button>
+          </div>
+        </div>
+      </FormikProvider>
+    </div>
   );
 };
 

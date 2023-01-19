@@ -65,3 +65,16 @@ a {
 .object-none {
   object-fit: none;
 }
+
+.algo-green {
+  color: #76f935;
+}
+.algo-teal {
+  color: #2cb6bc;
+}
+.algo-green-bg {
+  background-color: #76f935;
+}
+.algo-teal-bg {
+  background-color: #2cb6bc;
+}
